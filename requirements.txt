@@ -1,0 +1,8 @@
+# No external dependencies — both CLI agents (research_agent.py and
+# lucknow_research_agent.py) use only the Python standard library
+# (concurrent.futures, json, datetime, sys, os, time).
+#
+# Requires Python 3.7+ (uses f-strings and concurrent.futures.ThreadPoolExecutor).
+#
+# This file is kept for convention / future use (e.g. if live data
+# fetching via `requests` is added later).

@@ -8,6 +8,7 @@ Runs 3 sub-agents concurrently:
 """
 
 import sys
+import os
 import time
 import json
 from concurrent.futures import ThreadPoolExecutor
@@ -210,19 +211,23 @@ def main():
     print("=" * 65)
     print("\n" + final_brief)
     
-    # Save to disk as markdown and json
-    with open("c:/agent/lucknow_daily_summary.md", "w", encoding="utf-8") as f:
+    # Save to disk as markdown and json (relative to this script, works on any OS)
+    output_dir = os.path.dirname(os.path.abspath(__file__))
+    summary_path = os.path.join(output_dir, "lucknow_daily_summary.md")
+    data_path = os.path.join(output_dir, "lucknow_market_data.json")
+
+    with open(summary_path, "w", encoding="utf-8") as f:
         f.write(final_brief)
-    
-    with open("c:/agent/lucknow_market_data.json", "w", encoding="utf-8") as f:
+
+    with open(data_path, "w", encoding="utf-8") as f:
         json.dump({
             "city": "Lucknow",
             "generated_at": datetime.now().isoformat(),
             "market_data": market_data,
             "policy_data": policy_data
         }, f, indent=2)
-        
-    print("\nSaved daily summary to c:/agent/lucknow_daily_summary.md and c:/agent/lucknow_market_data.json")
+
+    print(f"\nSaved daily summary to {summary_path} and {data_path}")
 
 if __name__ == "__main__":
     main()
