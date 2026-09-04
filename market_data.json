@@ -1,0 +1,78 @@
+{
+  "generated_at": "2026-09-04T23:26:35.651615",
+  "market_data": {
+    "localities": {
+      "Kharadi": {
+        "avg_price_sqft": 11150,
+        "observed_range": "\u20b98,500 - \u20b913,800",
+        "rental_yield": "4.8% - 5.4%",
+        "drivers": "IT expansion, EON Free Zone, strong 2/3 BHK demand"
+      },
+      "Hinjewadi": {
+        "avg_price_sqft": 8400,
+        "observed_range": "\u20b97,000 - \u20b910,150",
+        "rental_yield": "4.9% - 5.6%",
+        "drivers": "High IT workforce rental absorption, Metro Line 3"
+      },
+      "Wakad": {
+        "avg_price_sqft": 9400,
+        "observed_range": "\u20b98,250 - \u20b910,800",
+        "rental_yield": "4.2% - 4.7%",
+        "drivers": "Proximity to IT parks + Expressway, top social infra"
+      },
+      "Baner": {
+        "avg_price_sqft": 11600,
+        "observed_range": "\u20b99,750 - \u20b916,000",
+        "rental_yield": "3.8% - 4.3%",
+        "drivers": "Premium upgrader demand, luxury 3 & 4 BHK inventory"
+      }
+    },
+    "featured_launches": [
+      {
+        "name": "Saheel Luxton",
+        "location": "Wakad",
+        "developer": "Saheel Properties",
+        "rera": "P52100054231",
+        "units": "2 & 3 BHK High-Rise"
+      },
+      {
+        "name": "Life Republic (New Sectors)",
+        "location": "Hinjewadi-Marunji",
+        "developer": "Kolte-Patil",
+        "rera": "Township Sector Registered",
+        "units": "1 to 4 BHK & Villas"
+      },
+      {
+        "name": "Joyville Vyomora",
+        "location": "Hinjewadi Phase 1",
+        "developer": "Shapoorji Pallonji",
+        "rera": "P52100052341",
+        "units": "2 & 3 BHK Smart Living"
+      },
+      {
+        "name": "Gera Avive Towers",
+        "location": "Kharadi",
+        "developer": "Gera Developments",
+        "rera": "P52100051890",
+        "units": "2.5, 3 & 3.5 BHK Child-Centric"
+      }
+    ]
+  },
+  "policy_data": {
+    "repo_rate": "5.25%",
+    "home_loan_rates": {
+      "floor_rate": "7.10% p.a.",
+      "prime_range": "7.10% - 7.25% p.a.",
+      "cibil_benchmark": "750+ for lowest spread"
+    },
+    "ready_reckoner": {
+      "status": "Held steady (No general hike for current period)",
+      "impact": "Stamp duty valuations remain stable, preventing sudden closing fee jumps"
+    },
+    "maharera_directives": [
+      "Strict 10% Advance Cap: Developers cannot take >10% before registered Agreement for Sale",
+      "Mandatory QR Code: All promotional media must display MahaRERA QR code linked to project page",
+      "Escrow Discipline: 70% of collections strictly in dedicated project escrow"
+    ]
+  }
+}

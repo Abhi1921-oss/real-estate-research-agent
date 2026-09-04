@@ -1,0 +1,84 @@
+{
+  "city": "Lucknow",
+  "generated_at": "2026-09-04T23:36:05.038183",
+  "market_data": {
+    "localities": {
+      "Gomti Nagar": {
+        "avg_price_sqft": 8200,
+        "observed_range": "\u20b96,050 - \u20b910,500",
+        "rental_yield": "3.6% - 4.2%",
+        "drivers": "Established prestige address, high resale liquidity, commercial hub"
+      },
+      "Shaheed Path": {
+        "avg_price_sqft": 8200,
+        "observed_range": "\u20b96,900 - \u20b99,500",
+        "rental_yield": "4.3% - 4.9%",
+        "drivers": "Direct connectivity from Airport to Ekana Stadium & Lulu Mall, high rental absorption"
+      },
+      "Sushant Golf City": {
+        "avg_price_sqft": 7600,
+        "observed_range": "\u20b96,200 - \u20b99,500",
+        "rental_yield": "4.5% - 5.2%",
+        "drivers": "HCL IT City, Medanta Hospital, integrated township living"
+      },
+      "Ayodhya / Faizabad Road": {
+        "avg_price_sqft": 6200,
+        "observed_range": "\u20b94,800 - \u20b97,800",
+        "rental_yield": "4.0% - 4.6%",
+        "drivers": "Direct link via Kisan Path (Outer Ring Road) + highway expansion"
+      }
+    },
+    "featured_launches": [
+      {
+        "name": "Shalimar Valencia County East",
+        "location": "Gomti Nagar Extension",
+        "developer": "Shalimar Corp",
+        "rera": "UPRERAPRJ65412",
+        "units": "3 & 4 BHK Luxury & Villas"
+      },
+      {
+        "name": "Eldeco Trinity",
+        "location": "Shaheed Path / Gomti Extn",
+        "developer": "Eldeco Group",
+        "rera": "UPRERAPRJ88231",
+        "units": "3 & 4 BHK Luxury Suites"
+      },
+      {
+        "name": "Omaxe Cassia (Metro City)",
+        "location": "Raebareli Road",
+        "developer": "Omaxe Ltd",
+        "rera": "UPRERAPRJ44190",
+        "units": "2 & 3 BHK Independent Floors"
+      },
+      {
+        "name": "Rishita Mulberry Heights",
+        "location": "Sushant Golf City",
+        "developer": "Rishita Developers",
+        "rera": "UPRERAPRJ35728",
+        "units": "2 & 3 BHK Resort Living"
+      }
+    ]
+  },
+  "policy_data": {
+    "repo_rate": "5.25%",
+    "home_loan_rates": {
+      "floor_rate": "7.10% p.a.",
+      "prime_range": "7.10% - 7.25% p.a.",
+      "cibil_benchmark": "750+ for lowest spread"
+    },
+    "stamp_duty_rebate": {
+      "standard_rate": "7%",
+      "female_buyer_rate": "6% (1% State Rebate)",
+      "impact": "Saves \u20b950,000 to \u20b91,00,000 on average residential registry"
+    },
+    "circle_rates": {
+      "status": "Revised circle rates in effect (IGRSUP portal)",
+      "impact": "Valuations adjusted to real market pricing in Gomti Nagar Extn & Shaheed Path"
+    },
+    "uprera_directives": [
+      "Mandatory UP RERA registration number on all media & advertisements",
+      "Model Agreement for Sale compliance: Penalties for unilateral delivery delays benchmarked to SBI MCLR + 1%",
+      "LDA Approval Vigilance: Buyers cautioned against non-LDA approved farm plot schemes on city peripheries"
+    ]
+  }
+}

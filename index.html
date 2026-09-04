@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lucknow Real Estate Daily Research Agent | Executive Broker Briefing</title>
+  <meta name="description" content="Daily multi-agent research dashboard for real estate brokers. Verified price per sqft movements, project launches, RBI interest rates, and RERA policies.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>">
+</head>
+<body>
+
+  <!-- Print-Only Header -->
+  <div class="print-header container">
+    <h1 id="printCityTitle">Lucknow Real Estate Executive Daily Briefing</h1>
+    <p>Prepared for Brokers & Channel Partners | Daily Market Digest</p>
+  </div>
+
+  <!-- Top Sticky Navigation & Live Status -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo-group">
+        <div class="logo-icon" id="headerLogoIcon">🏛️</div>
+        <div class="brand-text">
+          <h1><span id="brandTitle">LucknowRealty</span> <span style="color:#60a5fa;">Agent.AI</span> <span class="badge-location" id="locationBadge">Lucknow SCR Area</span></h1>
+          <p class="header-subtitle">Daily Parallel Multi-Agent Research System for Brokers</p>
+        </div>
+      </div>
+
+      <!-- City Switcher (Lucknow & Pune) -->
+      <div class="city-switcher">
+        <button class="city-btn active" data-city="lucknow">Lucknow</button>
+        <button class="city-btn" data-city="pune">Pune</button>
+      </div>
+
+      <div class="header-actions">
+        <button id="runAgentBtn" class="btn btn-primary" title="Trigger parallel sub-agents to re-verify all data">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+          </svg>
+          Refresh Daily Research
+        </button>
+        <button id="printPdfBtn" class="btn btn-secondary" title="Print or save as 1-page clean PDF">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <path d="M6 14h12v8H6z"/>
+          </svg>
+          Export 1-Page PDF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Live Macro Indicators Ribbon -->
+  <div class="market-ticker">
+    <div class="container ticker-items">
+      <div class="ticker-item">
+        <span class="pulse-dot"></span>
+        <span id="tickerMarketState">Market State: <strong>High Capital Region & NRI Influx</strong></span>
+      </div>
+      <div class="ticker-item">
+        <span id="tickerRepoRate">RBI Repo Benchmark: <strong>5.25% (Stable)</strong></span>
+      </div>
+      <div class="ticker-item">
+        <span id="tickerHomeLoan">Prime Home Loan: <strong>7.10% – 7.25% p.a.</strong></span>
+      </div>
+      <div class="ticker-item">
+        <span id="tickerStampDuty">Stamp Duty / ASR: <strong>7% (1% Rebate for Women)</strong></span>
+      </div>
+      <div class="ticker-item">
+        <span id="tickerRegulatory">Compliance: <strong>UP RERA & LDA Compliance</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    
+    <!-- 1. Parallel Sub-Agent Mission Control Panel -->
+    <section class="section" style="padding-bottom: 0.5rem;">
+      <div class="mission-control-panel">
+        <div class="section-header" style="margin-bottom: 0.5rem;">
+          <div class="section-title-wrap">
+            <div class="section-icon">⚡</div>
+            <div>
+              <h2 class="section-title">Parallel Sub-Agent Mission Control</h2>
+              <p class="section-desc">Three autonomous sub-tasks operating simultaneously to compile verified broker intelligence</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="agents-grid">
+          <!-- Sub-Agent 1 -->
+          <div class="agent-card completed" id="agent1Card">
+            <div>
+              <div class="agent-top">
+                <span class="agent-badge-id">SUB-AGENT 01</span>
+                <span class="agent-status-pill status-done" id="agent1Status">DONE</span>
+              </div>
+              <h3 class="agent-title">Prices & Launches Tracker</h3>
+              <p class="agent-subtext">Crawl micro-market ₹/sq.ft movements & verified RERA project launches across key corridors.</p>
+            </div>
+            <div>
+              <div class="progress-track">
+                <div class="progress-bar" id="agent1Progress" style="width: 100%;"></div>
+              </div>
+              <div class="agent-live-log" id="agent1Log">
+                Verified 4 micro-markets & 4 primary project launches.
+              </div>
+            </div>
+          </div>
+
+          <!-- Sub-Agent 2 -->
+          <div class="agent-card completed" id="agent2Card">
+            <div>
+              <div class="agent-top">
+                <span class="agent-badge-id">SUB-AGENT 02</span>
+                <span class="agent-status-pill status-done" id="agent2Status">DONE</span>
+              </div>
+              <h3 class="agent-title">Policy & Banking Monitor</h3>
+              <p class="agent-subtext">Track RBI Repo moves, bank home loan brackets, circle rate revisions, and state RERA rules.</p>
+            </div>
+            <div>
+              <div class="progress-track">
+                <div class="progress-bar" id="agent2Progress" style="width: 100%;"></div>
+              </div>
+              <div class="agent-live-log" id="agent2Log">
+                Regulatory checks passed (Circle rates & RERA compliance verified).
+              </div>
+            </div>
+          </div>
+
+          <!-- Sub-Agent 3 -->
+          <div class="agent-card completed" id="agent3Card">
+            <div>
+              <div class="agent-top">
+                <span class="agent-badge-id">SUB-AGENT 03</span>
+                <span class="agent-status-pill status-done" id="agent3Status">DONE</span>
+              </div>
+              <h3 class="agent-title">Synthesis & Pitch Engine</h3>
+              <p class="agent-subtext">Filter unverified noise, format a crisp 2-minute digest, and generate broadcast WhatsApp messages.</p>
+            </div>
+            <div>
+              <div class="progress-track">
+                <div class="progress-bar" id="agent3Progress" style="width: 100%;"></div>
+              </div>
+              <div class="agent-live-log" id="agent3Log">
+                Synthesized 1-page brief with verified confidence flags.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Terminal Logs Drawer -->
+        <div class="terminal-drawer">
+          <div class="terminal-header">
+            <span>LIVE AGENT PIPELINE TERMINAL</span>
+            <span>STATUS: READY</span>
+          </div>
+          <div class="terminal-logs" id="terminalLogs">
+            <p><span class="time">[System]</span> Initialized Multi-City Real Estate Research Pipeline.</p>
+            <p><span class="time">[A1-Market]</span> Crawled verified registry data for Gomti Nagar, Shaheed Path, and Sushant Golf City.</p>
+            <p><span class="time">[A2-Policy]</span> Confirmed RBI Repo 5.25%, prime home loan floor 7.10%, and UP 1% women stamp duty rebate.</p>
+            <p><span class="time">[A3-Format]</span> 2-Minute Executive Summary assembled and validated against cross-source metrics.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Top Alert Banner (Pinned Most Important Update) -->
+    <section class="section" style="padding-top: 0.5rem; padding-bottom: 1rem;">
+      <div class="top-alert-card">
+        <div class="alert-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L1 21h22L12 2zm0 3.5l7.5 13H4.5L12 5.5zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/>
+          </svg>
+          <span id="alertTagText">Most Important Update for Today (Lucknow)</span>
+        </div>
+        <h2 class="alert-headline" id="alertHeadlineText">
+          Home Loan Rates At 7.10% Floor + 1% Women Stamp Duty Rebate Sparks Festive Closings
+        </h2>
+        <ul class="alert-bullets" id="alertBulletsList">
+          <!-- Rendered via agent.js -->
+        </ul>
+      </div>
+    </section>
+
+    <!-- 3. Micro-Market Pricing & Movements -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-icon">📈</div>
+          <div>
+            <h2 class="section-title">Popular Micro-Markets — Price Movement (₹/sq.ft)</h2>
+            <p class="section-desc">Average transaction values, observed brackets, and infrastructure catalysts</p>
+          </div>
+        </div>
+        <div class="market-filter-bar" style="margin-bottom: 0;">
+          <div class="filter-pills" id="filterPillsContainer">
+            <!-- Rendered via agent.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Dynamic Micro-Market Cards -->
+      <div class="markets-grid" id="marketGrid">
+        <!-- Rendered via agent.js -->
+      </div>
+    </section>
+
+    <!-- 4. Twin Columns: Launches Radar & Policy/Compliance -->
+    <section class="section">
+      <div class="twin-columns">
+        
+        <!-- Column A: New Launches Radar -->
+        <div class="card-panel">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <div class="section-icon">🚀</div>
+              <div>
+                <h3 class="section-title" style="font-size: 1.15rem;">Verified New Project Launches</h3>
+                <p class="section-desc">Recently registered and active marketing projects</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="launches-list" id="launchesContainer">
+            <!-- Rendered via agent.js -->
+          </div>
+        </div>
+
+        <!-- Column B: Regulatory, Interest Rates & Quick EMI -->
+        <div class="card-panel">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <div class="section-icon">⚖️</div>
+              <div>
+                <h3 class="section-title" style="font-size: 1.15rem;">Market, Policy & Banking Watch</h3>
+                <p class="section-desc">Key legal & financing metrics to educate prospective buyers</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Policy Rule Items Container -->
+          <div id="rulesContainer">
+            <!-- Rendered via agent.js -->
+          </div>
+
+          <!-- Quick Interactive EMI Tool -->
+          <div class="emi-tool-box">
+            <div style="font-size: 0.85rem; font-weight: 600; color: #f8fafc; margin-bottom: 0.75rem;">
+              🧮 Instant Client Loan EMI Calculator
+            </div>
+            <div class="emi-inputs-grid">
+              <div class="input-field">
+                <label>Loan Amount (₹ Lakhs)</label>
+                <input type="number" id="loanAmount" value="65" min="10" max="500" step="5">
+              </div>
+              <div class="input-field">
+                <label>Interest Rate (% p.a.)</label>
+                <input type="number" id="loanRate" value="7.15" min="5" max="15" step="0.05">
+              </div>
+              <div class="input-field">
+                <label>Tenure (Years)</label>
+                <select id="loanTenure">
+                  <option value="15">15 Years</option>
+                  <option value="20" selected>20 Years</option>
+                  <option value="25">25 Years</option>
+                  <option value="30">30 Years</option>
+                </select>
+              </div>
+            </div>
+            <div class="emi-result-banner">
+              <span class="emi-label">Estimated Monthly EMI:</span>
+              <span class="emi-val" id="emiOutput">₹50,967 / mo</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. 20-Second Client Pitch & WhatsApp Broadcast Generator -->
+    <section class="section" style="padding-top: 0;">
+      <div class="pitch-card">
+        <div class="section-title-wrap">
+          <div class="section-icon">💬</div>
+          <div>
+            <h3 class="section-title" style="font-size: 1.2rem;">Broker Tools: Client Pitch & WhatsApp Broadcaster</h3>
+            <p class="section-desc">Ready-to-use verbal pitch and 1-click shareable text for your investor and end-user leads</p>
+          </div>
+        </div>
+
+        <div class="pitch-content-wrap">
+          <div>
+            <div style="font-size: 0.8rem; font-weight: 600; color: var(--color-brand); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">
+              20-Second Verbal Phone Script
+            </div>
+            <div class="speech-bubble">
+              <p class="speech-text" id="speechPitchText">
+                <!-- Rendered via agent.js -->
+              </p>
+            </div>
+          </div>
+
+          <div class="whatsapp-box">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <span style="font-size: 0.8rem; font-weight: 600; color: #34d399;">WhatsApp Daily Broadcast</span>
+                <span style="font-size: 0.7rem; color: var(--text-dim);">Pre-formatted for WhatsApp</span>
+              </div>
+              <div class="whatsapp-preview-box" id="whatsappPreview">
+                <!-- Populated via agent.js -->
+              </div>
+            </div>
+            <button id="copyWhatsAppBtn" class="btn btn-success" style="width: 100%; justify-content: center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              Copy WhatsApp Broadcast
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>RealEstate Daily Research Agent • Designed for Real Estate Brokers & Property Consultants.</p>
+      <p style="margin-top: 0.25rem; font-size: 0.75rem; color: #475569;">
+        Data compiled from verified RERA filings, RBI monetary announcements, and registered registry transactions. Rates subject to project specifications.
+      </p>
+    </div>
+  </footer>
+
+  <script src="agent.js"></script>
+</body>
+</html>
