@@ -1,89 +1,92 @@
-# 🏢 Multi-City Real Estate Daily Research Multi-Agent System
-### Autonomous Research Agent for Real Estate Brokers (Lucknow & Pune Markets)
+# 🏙️ Multi-City Real Estate Daily Research Agent
 
-An autonomous multi-agent real estate intelligence system designed specifically for real estate brokers, channel partners, and property consultants. It coordinates three parallel sub-agents to gather micro-market price movements, monitor RERA project launches, track RBI/state regulatory updates, and synthesize a crisp 2-minute actionable daily briefing.
+An AI-powered multi-agent system that automatically researches and summarizes real estate market conditions across **Lucknow** and **Pune** — covering pricing trends, regulatory updates, and financing intelligence — and packages the findings into daily reports.
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)
-![Frontend](https://img.shields.io/badge/frontend-Vanilla%20HTML%20%2F%20CSS%20%2F%20JS-emerald.svg)
-![Markets](https://img.shields.io/badge/markets-Lucknow%20%7C%20Pune-amber.svg)
+## 📌 Overview
 
----
+This project runs a set of autonomous research agents that gather and synthesize real estate data for two Indian cities, producing:
 
-## 🚀 Key Features
+- Daily market summaries in Markdown
+- Structured JSON market data per city
+- Polished, shareable PDF reports
+- A browser-based dashboard for viewing results
 
-- **⚡ Parallel Multi-Agent Architecture:**
-  - **Sub-Agent 1 (Prices & Launches):** Concurrently gathers ₹/sq.ft price bands, rental yields, and verified RERA launches across prime corridors.
-  - **Sub-Agent 2 (Policy & Banking):** Tracks RBI repo rates, bank home loan brackets, Ready Reckoner / Circle rates, and state RERA rules.
-  - **Sub-Agent 3 (Synthesis Engine):** Compiles cross-verified findings into a clean 2-minute executive digest, phone pitch script, and pre-formatted WhatsApp broadcast.
-- **🏛️ Multi-City Intelligence (Lucknow & Pune):**
-  - **Lucknow:** Gomti Nagar, Shaheed Path, Sushant Golf City, Ayodhya Road; UP RERA compliance, 1% female stamp duty rebate, Kisan Path Outer Ring Road impact.
-  - **Pune:** Kharadi, Hinjewadi, Wakad, Baner; MahaRERA 10% advance cap, Ready Reckoner rates, Metro Line 3 impact.
-- **🖥️ Executive Web Dashboard:**
-  - Dynamic Glassmorphic Dark UI with live market ticker.
-  - Real-time visual progress bars & streaming agent terminal logs.
-  - Micro-market pricing grid with high-contrast verification badges.
-  - Interactive Buyer Loan EMI & Affordability Calculator.
-  - 1-Click WhatsApp broadcast copy tool with emojis.
-  - Clean 1-Page PDF / Print mode.
-- **🐍 Standalone Python CLI:**
-  - Concurrent execution using `concurrent.futures.ThreadPoolExecutor`.
-  - Generates markdown digests and JSON archives in under 2 seconds.
+It's designed to save the manual work of tracking property prices, regulations, and financing conditions across multiple city corridors by automating the research and reporting pipeline end-to-end.
 
----
+## ✨ Features
 
-## 📁 Repository Structure
+- 🔍 **Multi-city coverage** — dedicated research agents for Lucknow and Pune real estate corridors
+- 📊 **Structured data output** — market data captured as clean JSON (`market_data.json`, `lucknow_market_data.json`)
+- 📝 **Daily summaries** — auto-generated Markdown reports (`daily_summary.md`, `lucknow_daily_summary.md`)
+- 📄 **PDF report generation** — professional PDF exports via `create_project_pdf.py` and `generate_pdf_report.html`
+- 🖥️ **Web dashboard** — `index.html` + `agent.js` provide a simple front-end to browse research output
+- 🔁 **Cross-platform CLI agents** — Python agents built with relative paths for portability across operating systems
+
+## 🗂️ Project Structure
 
 ```
-├── index.html                 # Executive interactive web dashboard
-├── style.css                  # Modern glassmorphism design system & print styles
-├── agent.js                   # Client-side agent orchestrator & calculations
-├── research_agent.py          # Parallel CLI agent for Pune real estate
-├── lucknow_research_agent.py  # Parallel CLI agent for Lucknow real estate
-├── daily_summary.md           # Pune daily broker briefing (markdown)
-├── lucknow_daily_summary.md   # Lucknow daily broker briefing (markdown)
-├── market_data.json           # Structured Pune market data
-├── lucknow_market_data.json   # Structured Lucknow market data
-└── .gitignore                 # Standard repository exclusions
+real-estate-research-agent/
+├── index.html                       # Web dashboard
+├── agent.js                         # Dashboard logic
+├── lucknow_research_agent.py        # CLI research agent — Lucknow
+├── research_agent.py                # CLI research agent — general/Pune
+├── create_project_pdf.py            # Generates project spec PDF (ReportLab)
+├── generate_pdf_report.html         # HTML template for PDF reports
+├── market_data.json                 # Structured market data
+├── lucknow_market_data.json         # Lucknow-specific market data
+├── daily_summary.md                 # Auto-generated daily summary
+├── lucknow_daily_summary.md         # Lucknow-specific daily summary
+├── requirements.txt                 # Python dependencies
+└── Real_Estate_Research_Agent_Project_Details.pdf  # Full project spec
 ```
 
----
+## 🚀 Getting Started
 
-## 🛠️ Quick Start
+### Prerequisites
+- Python 3.x
+- pip
 
-### 1. Run the Web Dashboard
-You can serve the directory using Python's built-in HTTP server:
+### Installation
 
 ```bash
-python -m http.server 8080
+git clone https://github.com/Abhi1921-oss/real-estate-research-agent.git
+cd real-estate-research-agent
+pip install -r requirements.txt
 ```
-Open **[http://localhost:8080](http://localhost:8080)** in any browser.
 
-### 2. Run the CLI Research Agents
-Run the parallel multi-agent research directly from your terminal:
+### Running the research agents
 
-**For Lucknow:**
 ```bash
 python lucknow_research_agent.py
-```
-
-**For Pune:**
-```bash
 python research_agent.py
 ```
 
-Outputs will be saved automatically to `lucknow_daily_summary.md` and `lucknow_market_data.json`.
+### Viewing the dashboard
 
----
+Open `index.html` in your browser to view the latest research output.
 
-## 📊 Market Coverage & Data Sources
+### Generating a PDF report
 
-| City | Micro-Markets Covered | Key Developers Tracked | Regulatory Bodies |
-| :--- | :--- | :--- | :--- |
-| **Lucknow** | Gomti Nagar, Shaheed Path, Sushant Golf City, Ayodhya/Faizabad Rd | Shalimar Corp, Eldeco Group, Omaxe Ltd, Rishita Developers | UP RERA, LDA, IGRSUP |
-| **Pune** | Kharadi, Hinjewadi, Wakad, Baner | Saheel, Kolte-Patil, Gera, Shapoorji Pallonji | MahaRERA, PMC, PCMC |
+```bash
+python create_project_pdf.py
+```
 
----
+## 🛣️ Roadmap
+
+- [ ] Expand coverage to additional cities
+- [ ] Automate daily runs via a scheduler (cron / GitHub Actions)
+- [ ] Add historical price trend tracking
+- [ ] Improve dashboard with charts and filters
+
+## 🤝 Contributing
+
+This is currently a solo project under active development. Suggestions and feedback are welcome via Issues.
 
 ## 📄 License
-This project is open-source and available under the [MIT License](LICENSE).
+
+No license has been added yet — all rights reserved by default. Add a `LICENSE` file if you'd like to open this up for reuse.
+
+## 👤 Author
+
+**Abhishek Mishra**
+- GitHub: [@Abhi1921-oss](https://github.com/Abhi1921-oss)
