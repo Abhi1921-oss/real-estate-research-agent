@@ -1,4 +1,4 @@
-# 🏛️ Lucknow Real Estate Broker Briefing — 04 September 2026
+# 🏛️ Lucknow Real Estate Broker Briefing — 27 September 2026
 *(2-Minute Quick Read | Verified Market Intelligence | SCR Lucknow)*
 
 ---

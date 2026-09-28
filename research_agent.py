@@ -178,13 +178,18 @@ def subagent_3_synthesis_and_formatting(market_data, policy_data):
     log_agent("Sub-Agent 3", "One-page summary generated successfully.")
     return summary
 
-def main():
-    print("=" * 65)
-    print("🚀 PUNE REAL ESTATE DAILY RESEARCH MULTI-AGENT SYSTEM")
-    print("=" * 65)
-    print("Starting Sub-Agents 1 and 2 in parallel...")
-    print("-" * 65)
-    
+def run_pune_research(save_to_disk: bool = True) -> dict:
+    """
+    Executes the 3 Pune sub-agents and returns structured result dictionary:
+    {
+        "city": "pune",
+        "content": markdown_summary,
+        "market_data": market_data_dict,
+        "policy_data": policy_data_dict,
+        "generated_at": iso_timestamp,
+        "elapsed_seconds": float
+    }
+    """
     start_time = time.time()
     
     with ThreadPoolExecutor(max_workers=2) as executor:
@@ -194,34 +199,46 @@ def main():
         market_data = future_market.result()
         policy_data = future_policy.result()
         
-    print("-" * 65)
-    print("Parallel data collection finished. Handing over to Sub-Agent 3...")
-    print("-" * 65)
-    
     final_brief = subagent_3_synthesis_and_formatting(market_data, policy_data)
-    
     elapsed = time.time() - start_time
-    print("-" * 65)
-    print(f"✨ All sub-agents completed in {elapsed:.2f} seconds.")
-    print("=" * 65)
-    print("\n" + final_brief)
     
-    # Save to disk as markdown and json (relative to this script, works on any OS)
-    output_dir = os.path.dirname(os.path.abspath(__file__))
-    summary_path = os.path.join(output_dir, "daily_summary.md")
-    data_path = os.path.join(output_dir, "market_data.json")
+    result = {
+        "city": "pune",
+        "content": final_brief,
+        "market_data": market_data,
+        "policy_data": policy_data,
+        "generated_at": datetime.now().isoformat(),
+        "elapsed_seconds": round(elapsed, 2)
+    }
+    
+    if save_to_disk:
+        output_dir = os.path.dirname(os.path.abspath(__file__))
+        summary_path = os.path.join(output_dir, "daily_summary.md")
+        data_path = os.path.join(output_dir, "market_data.json")
 
-    with open(summary_path, "w", encoding="utf-8") as f:
-        f.write(final_brief)
+        with open(summary_path, "w", encoding="utf-8") as f:
+            f.write(final_brief)
 
-    with open(data_path, "w", encoding="utf-8") as f:
-        json.dump({
-            "generated_at": datetime.now().isoformat(),
-            "market_data": market_data,
-            "policy_data": policy_data
-        }, f, indent=2)
+        with open(data_path, "w", encoding="utf-8") as f:
+            json.dump(result, f, indent=2)
 
-    print(f"\nSaved daily summary to {summary_path} and {data_path}")
+    return result
+
+def main():
+    print("=" * 65)
+    print("🚀 PUNE REAL ESTATE DAILY RESEARCH MULTI-AGENT SYSTEM")
+    print("=" * 65)
+    print("Starting Sub-Agents 1 and 2 in parallel...")
+    print("-" * 65)
+    
+    result = run_pune_research(save_to_disk=True)
+    
+    print("-" * 65)
+    print(f"✨ All sub-agents completed in {result['elapsed_seconds']} seconds.")
+    print("=" * 65)
+    print("\n" + result["content"])
+    print(f"\nSaved daily summary to daily_summary.md and market_data.json")
 
 if __name__ == "__main__":
     main()
+

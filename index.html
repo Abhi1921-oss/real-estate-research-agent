@@ -7,13 +7,24 @@
   <meta name="description" content="Daily multi-agent research dashboard for real estate brokers. Verified price per sqft movements, project launches, RBI interest rates, and RERA policies.">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
   <!-- Print-Only Header -->
-  <div class="print-header container">
-    <h1 id="printCityTitle">Lucknow Real Estate Executive Daily Briefing</h1>
-    <p>Prepared for Brokers & Channel Partners | Daily Market Digest</p>
+  <!-- Print-Only Header (White-Label Broker Stamping) -->
+  <div class="print-header container" id="printWhiteLabelHeader">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px;">
+      <div>
+        <h1 id="printAgencyName" style="font-size: 22px; margin: 0; color: #000;">RealtyIntel Executive Research</h1>
+        <p id="printBrokerMeta" style="font-size: 12px; margin: 3px 0 0 0; color: #444;">Prepared for Clients & Channel Partners | Verified Market Digest</p>
+      </div>
+      <div style="text-align: right; font-size: 11px; color: #333;" id="printContactBlock">
+        <div id="printReraId"></div>
+        <div id="printPhone"></div>
+      </div>
+    </div>
+    <h2 id="printCityTitle" style="font-size: 16px; margin: 4px 0 10px 0; color: #1e3a8a;">Daily Market Intelligence Briefing</h2>
   </div>
 
   <!-- Top Sticky Navigation & Live Status -->
@@ -27,26 +38,90 @@
         </div>
       </div>
 
-      <!-- City Switcher (Lucknow & Pune) -->
-      <div class="city-switcher">
-        <button class="city-btn active" data-city="lucknow">Lucknow</button>
-        <button class="city-btn" data-city="pune">Pune</button>
+      <!-- Universal 5-City Switcher with Plan Gate Locks -->
+      <div class="city-switcher" id="citySwitcherContainer">
+        <button class="city-btn active" data-city="lucknow" id="cityBtnLucknow">
+          <span>Lucknow</span>
+          <span class="city-lock-badge" id="lockLucknow" style="display:none;">🔒</span>
+        </button>
+        <button class="city-btn" data-city="pune" id="cityBtnPune">
+          <span>Pune</span>
+          <span class="city-lock-badge" id="lockPune" style="display:none;">🔒</span>
+        </button>
+        <button class="city-btn" data-city="mumbai" id="cityBtnMumbai">
+          <span>Mumbai</span>
+          <span class="city-lock-badge" id="lockMumbai" style="display:none;">🔒</span>
+        </button>
+        <button class="city-btn" data-city="bengaluru" id="cityBtnBengaluru">
+          <span>Bengaluru</span>
+          <span class="city-lock-badge" id="lockBengaluru" style="display:none;">🔒</span>
+        </button>
+        <button class="city-btn" data-city="delhi_ncr" id="cityBtnDelhiNcr">
+          <span>Delhi-NCR</span>
+          <span class="city-lock-badge" id="lockDelhiNcr" style="display:none;">🔒</span>
+        </button>
       </div>
 
+      <!-- SaaS Header Controls: Usage Meter, Upgrade CTA, Branding, Email, Auth -->
       <div class="header-actions">
+        <!-- Usage Meter Widget -->
+        <div class="usage-meter-widget" id="usageWidget" title="Your monthly research report quota">
+          <div class="usage-meter-labels">
+            <span class="usage-title">Usage:</span>
+            <span class="usage-values"><strong id="usageCount">0</strong> / <span id="usageLimit">4</span></span>
+          </div>
+          <div class="meter-bar-track">
+            <div class="meter-bar-fill" id="usageBarFill" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- Upgrade Button -->
+        <button id="upgradeBtn" class="btn btn-upgrade" title="Upgrade to Pro or Agency for more cities and daily research">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          Upgrade
+        </button>
+
+        <!-- Manage Cities -->
+        <button id="manageCitiesBtn" class="btn btn-secondary btn-icon-only" title="Manage Subscribed Cities">
+          🏙️
+        </button>
+
+        <!-- White-Label Branding -->
+        <button id="brandingBtn" class="btn btn-secondary btn-icon-only" title="White-Label Broker PDF Branding">
+          🎨
+        </button>
+
+        <!-- Immediate Test Email Digest -->
+        <button id="testDigestBtn" class="btn btn-secondary btn-icon-only" title="Send Morning Email Digest">
+          📧
+        </button>
+
         <button id="runAgentBtn" class="btn btn-primary" title="Trigger parallel sub-agents to re-verify all data">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
           </svg>
-          Refresh Daily Research
+          Refresh Research
         </button>
+
         <button id="printPdfBtn" class="btn btn-secondary" title="Print or save as 1-page clean PDF">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
             <path d="M6 14h12v8H6z"/>
           </svg>
-          Export 1-Page PDF
+          PDF
         </button>
+
+        <!-- Auth Section -->
+        <div class="auth-section" id="authSection">
+          <button id="authOpenBtn" class="btn btn-secondary">Sign In</button>
+          <div class="user-pill" id="userPill" style="display: none;">
+            <span class="plan-pill-tag" id="userPlanBadge">FREE</span>
+            <span class="user-email-text" id="userEmailDisplay">user@realty.com</span>
+            <button id="authLogoutBtn" class="logout-icon-btn" title="Sign Out">✕</button>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -335,6 +410,215 @@
       </p>
     </div>
   </footer>
+
+  <!-- ==============================================================================
+       SAAS MODALS: AUTH, STRIPE PRICING, MANAGE CITIES
+       ============================================================================== -->
+
+  <!-- 1. Authentication Modal (Supabase Auth) -->
+  <div class="modal-backdrop" id="authModal" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="authModalTitle">Broker Portal Sign In</h3>
+        <button class="modal-close-btn" id="closeAuthBtn">✕</button>
+      </div>
+      <div class="modal-tabs">
+        <button class="modal-tab active" id="tabSignInBtn">Sign In</button>
+        <button class="modal-tab" id="tabSignUpBtn">Create Account</button>
+      </div>
+      <div class="modal-body">
+        <div id="authAlert" class="modal-alert" style="display: none;"></div>
+        <form id="authForm" onsubmit="return false;">
+          <div class="form-group">
+            <label for="authEmail">Email Address</label>
+            <input type="email" id="authEmail" class="form-input" placeholder="broker@realtyintel.ai" required>
+          </div>
+          <div class="form-group">
+            <label for="authPassword">Password</label>
+            <input type="password" id="authPassword" class="form-input" placeholder="••••••••" required>
+          </div>
+          <button type="submit" id="authSubmitBtn" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem;">
+            Sign In to Dashboard
+          </button>
+          <div style="text-align: center; margin-top: 1rem;">
+            <span style="font-size: 0.8rem; color: var(--text-dim);">— or quick test —</span>
+          </div>
+          <button type="button" id="authDemoBtn" class="btn btn-secondary" style="width: 100%; justify-content: center; margin-top: 0.5rem;">
+            Instant Demo Account (Pro Tier)
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Subscription & Upgrade Modal (Stripe Checkout) -->
+  <div class="modal-backdrop" id="upgradeModal" style="display: none;">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <div>
+          <h3>Upgrade Your Intelligence Plan</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;">Expand to multiple micro-markets and unlock daily autonomous agent pre-warming.</p>
+        </div>
+        <button class="modal-close-btn" id="closeUpgradeBtn">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="pricing-grid">
+          <!-- Free Tier -->
+          <div class="pricing-card" id="pricingCardFree">
+            <div class="pricing-badge">STARTER</div>
+            <h4>Free Plan</h4>
+            <div class="pricing-price">₹0 <span>/ month</span></div>
+            <p class="pricing-desc">For individual brokers testing intelligence in a single territory.</p>
+            <ul class="pricing-features">
+              <li>✓ <strong>1 Subscribed City</strong> (Pune or Lucknow)</li>
+              <li>✓ Weekly Research Refreshes</li>
+              <li>✓ 4 Full Reports / Month</li>
+              <li>✓ WhatsApp pitch formatting</li>
+              <li>✗ Daily automated morning pre-warm</li>
+              <li>✗ Direct REST API access</li>
+            </ul>
+            <button class="btn btn-secondary" id="btnPlanFree" disabled style="width: 100%; justify-content: center;">Current Plan</button>
+          </div>
+
+          <!-- Pro Tier -->
+          <div class="pricing-card featured" id="pricingCardPro">
+            <div class="pricing-badge popular">MOST POPULAR</div>
+            <h4>Pro Tier</h4>
+            <div class="pricing-price">₹999 <span>/ month</span></div>
+            <p class="pricing-desc">For active consultants closing multiple luxury and commercial deals.</p>
+            <ul class="pricing-features">
+              <li>✓ <strong>3 Subscribed Cities</strong> simultaneously</li>
+              <li>✓ <strong>Daily Pre-Warmed Intelligence</strong> (Ready at 6 AM)</li>
+              <li>✓ 30 Full Reports / Month</li>
+              <li>✓ 1-Page PDF & WhatsApp broadcast generator</li>
+              <li>✓ Verified MahaRERA & UP-RERA policy radar</li>
+              <li>✗ Direct REST API access</li>
+            </ul>
+            <button class="btn btn-primary" id="btnUpgradePro" style="width: 100%; justify-content: center;">
+              ⚡ Upgrade to Pro (₹999)
+            </button>
+          </div>
+
+          <!-- Agency Tier -->
+          <div class="pricing-card" id="pricingCardAgency">
+            <div class="pricing-badge">ENTERPRISE</div>
+            <h4>Agency Tier</h4>
+            <div class="pricing-price">₹3,999 <span>/ month</span></div>
+            <p class="pricing-desc">For brokerage firms, channel partners, and tech syndicates.</p>
+            <ul class="pricing-features">
+              <li>✓ <strong>Unlimited Subscribed Cities</strong></li>
+              <li>✓ Daily 6 AM Autonomous Cron Pre-warming</li>
+              <li>✓ Unlimited Web Dashboard Generations</li>
+              <li>✓ <strong>Direct REST API Access</strong> (Bearer Tokens)</li>
+              <li>✓ Metered API Usage billing via Stripe</li>
+              <li>✓ Priority Developer & Research Support</li>
+            </ul>
+            <button class="btn btn-upgrade" id="btnUpgradeAgency" style="width: 100%; justify-content: center;">
+              👑 Upgrade to Agency (₹3999)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Manage Subscribed Cities Modal -->
+  <div class="modal-backdrop" id="citiesModal" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Manage Subscribed Cities</h3>
+        <button class="modal-close-btn" id="closeCitiesBtn">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+          Your <strong id="citiesModalTier" style="color: #60a5fa;">Free</strong> plan allows up to <strong id="citiesModalLimit" style="color: #60a5fa;">1</strong> subscribed city.
+        </p>
+        <div id="citiesAlert" class="modal-alert" style="display: none;"></div>
+        <div class="city-selection-list">
+          <label class="city-checkbox-label">
+            <input type="checkbox" id="chkCityLucknow" value="lucknow">
+            <span class="city-check-info">
+              <strong>Lucknow (SCR)</strong>
+              <small>Shaheed Path, Gomti Nagar, Sushant Golf City, Ayodhya Rd</small>
+            </span>
+          </label>
+          <label class="city-checkbox-label">
+            <input type="checkbox" id="chkCityPune" value="pune">
+            <span class="city-check-info">
+              <strong>Pune (PMRDA)</strong>
+              <small>Kharadi, Hinjewadi, Wakad, Baner Corridors</small>
+            </span>
+          </label>
+          <label class="city-checkbox-label">
+            <input type="checkbox" id="chkCityMumbai" value="mumbai">
+            <span class="city-check-info">
+              <strong>Mumbai (MMR)</strong>
+              <small>Andheri West, Powai, Thane West, Navi Mumbai</small>
+            </span>
+          </label>
+          <label class="city-checkbox-label">
+            <input type="checkbox" id="chkCityBengaluru" value="bengaluru">
+            <span class="city-check-info">
+              <strong>Bengaluru (Tech Corridors)</strong>
+              <small>Whitefield, Sarjapur Rd, Hebbal, Electronic City</small>
+            </span>
+          </label>
+          <label class="city-checkbox-label">
+            <input type="checkbox" id="chkCityDelhiNcr" value="delhi_ncr">
+            <span class="city-check-info">
+              <strong>Delhi-NCR (Gurgaon & Noida)</strong>
+              <small>Golf Course Extn, Dwarka Exp, Sec 150 Noida</small>
+            </span>
+          </label>
+        </div>
+        <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
+          <button id="saveCitiesBtn" class="btn btn-primary" style="flex: 1; justify-content: center;">
+            Save Selection
+          </button>
+          <button id="citiesModalUpgradeBtn" class="btn btn-upgrade" style="display: none;">
+            Upgrade Tier
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. White-Label Broker PDF Branding Modal -->
+  <div class="modal-backdrop" id="brandingModal" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h3>White-Label PDF Branding</h3>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">Stamp your agency's logo, credentials, and contact info onto all 1-page PDF exports.</p>
+        </div>
+        <button class="modal-close-btn" id="closeBrandingBtn">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="brandingAlert" class="modal-alert" style="display: none;"></div>
+        <form id="brandingForm" onsubmit="return false;">
+          <div class="form-group">
+            <label for="brandAgencyName">Brokerage / Agency Name</label>
+            <input type="text" id="brandAgencyName" class="form-input" placeholder="e.g. Apex Luxury Realty Advisors">
+          </div>
+          <div class="form-group">
+            <label for="brandAgencyPhone">Direct Contact Phone / WhatsApp</label>
+            <input type="text" id="brandAgencyPhone" class="form-input" placeholder="+91 98765 43210">
+          </div>
+          <div class="form-group">
+            <label for="brandAgencyRera">RERA Broker Registration Number</label>
+            <input type="text" id="brandAgencyRera" class="form-input" placeholder="e.g. MahaRERA A52100012345">
+          </div>
+          <div class="form-group">
+            <label for="brandAgencyLogo">Agency Logo URL (optional)</label>
+            <input type="url" id="brandAgencyLogo" class="form-input" placeholder="https://youragency.com/logo.png">
+          </div>
+          <button type="submit" id="saveBrandingBtn" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem;">
+            Save Branding Preferences
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <script src="agent.js"></script>
 </body>
